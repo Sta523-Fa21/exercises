@@ -48,7 +48,7 @@ penguins %>%
     y = ""
   ) +
   guides(
-    color = FALSE
+    color = "none"
   )
 
 ## Exercise 2
