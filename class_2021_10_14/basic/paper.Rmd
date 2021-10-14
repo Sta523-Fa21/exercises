@@ -1,6 +1,6 @@
 ---
 title: "Makefile Example"
-author: "Colin Rundel"
+author: "Colin Rundel & Jane Doe"
 date: "10/14/2021"
 output: html_document
 ---

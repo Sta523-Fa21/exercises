@@ -9,9 +9,8 @@ paper.html: paper.Rmd fig1/fig.png fig2/fig.png
 fig%/fig.png: fig%/fig.R
 	cd $(<D);Rscript $(<F)
 
-clean:
+clean: 
 	rm -f paper.html
-	rm -f fig1/*.png
-	rm -f fig2/*.png
-	
+	rm -f paper.pdf
+
 .PHONY: all clean
