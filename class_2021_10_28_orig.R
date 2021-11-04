@@ -11,8 +11,7 @@ shinyApp(
         sliderInput("n", "# of flips", min=0, max=100, value=20),
         h4("Prior:"),
         numericInput("alpha", "Prior # of heads", min=0, value=5),
-        numericInput("beta", "Prior # of tails", min=0, value=5),
-        h4("Options:")
+        numericInput("beta", "Prior # of tails", min=0, value=5)
       ),
       mainPanel = mainPanel(
         plotOutput("plot")
@@ -35,10 +34,10 @@ shinyApp(
           likelihood = dbinom(input$x, size = input$n, prob = p),
           posterior = dbeta(p, input$alpha + input$x, input$beta + input$n - input$x)
         ) %>%
-        tidyr::gather(
-          distribution,
-          density,
-          prior, likelihood, posterior
+        pivot_longer(
+          cols = -p,
+          names_to = "distribution",
+          values_to = "density"
         ) %>%
         group_by(distribution) %>%
         mutate(
@@ -47,13 +46,10 @@ shinyApp(
     })
     
     output$plot = renderPlot({
-      g = ggplot(d(), aes(x=p, y=density, color=forcats::as_factor(distribution))) +
+      ggplot(d(), aes(x=p, y=density, color=forcats::as_factor(distribution))) +
         geom_line(size=2) + 
         scale_color_manual(values = c("#7fc97f", "#beaed4", "#dfc086", "#e78ac3")) +
         labs(color = "Distribution")
-      
-      
-      g
     })
   }
 )
